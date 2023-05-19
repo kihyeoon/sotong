@@ -1,3 +1,7 @@
 export default function Home() {
-  return <h1 className=" text-blue-500 text-xl">Sotong</h1>;
+  return (
+    <div className="h-[3000px]">
+      <h1 className=" text-blue-500 text-xl">Sotong</h1>
+    </div>
+  );
 }
