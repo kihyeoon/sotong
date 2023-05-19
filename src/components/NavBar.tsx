@@ -10,6 +10,7 @@ import {
   NewIcon,
   NewFillIcon,
 } from "@/components/ui/icons";
+import ColorButton from "@/components/ui/ColorButton";
 
 const menu = [
   { href: "/", Icon: <HomeIcon />, FillIcon: <HomeFillIcon /> },
@@ -34,9 +35,7 @@ export default function NavBar() {
           ))}
           <li>
             <Link href="/signIn">
-              <button className="border-2	border-blue-500 p-2 rounded-md">
-                Sign in
-              </button>
+              <ColorButton text="Sign In" onClick={() => {}} />
             </Link>
           </li>
         </ul>
