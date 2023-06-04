@@ -3,6 +3,7 @@ import "./globals.css";
 import { Open_Sans } from "next/font/google";
 import AuthContext from "@/context/AuthContext";
 import { ReactNode } from "react";
+import SWRConfigContext from "@/context/SWRConfigContext";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="mx-auto flex min-h-screen max-w-screen-xl flex-col">
         <AuthContext>
           <NavBar />
-          <main className="grow p-4">{children}</main>
+          <main className="grow p-4">
+            <SWRConfigContext>{children}</SWRConfigContext>
+          </main>
         </AuthContext>
       </body>
     </html>
