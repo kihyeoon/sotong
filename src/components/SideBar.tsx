@@ -12,7 +12,7 @@ export default function SideBar({ user: { name, username, image } }: Props) {
         {image && <Avatar image={image} />}
         <div className="ml-4">
           <h2 className="font-bold">{name}</h2>
-          <h3 className="text-lg text-neutral-500 leading-4">@{username}</h3>
+          <h3 className="text-neutral-500 leading-4">{username}</h3>
         </div>
       </div>
       <p className="text-sm text-neutral-500 mt-8">

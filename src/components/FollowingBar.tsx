@@ -7,22 +7,32 @@ import useSWR from "swr";
 
 export default function FollowingBar() {
   const { data, isLoading, error } = useSWR<DetailUser>("/api/me");
-  const user = data?.following;
+  // const user = data?.following;
+  const user = data?.following && [
+    ...data?.following,
+    ...data?.following,
+    ...data?.following,
+  ];
 
   return (
-    <section>
+    <section className="w-full flex justify-center items-center p-4 mb-4 rounded-lg min-h-[119px] overflow-x-auto">
       {isLoading ? (
         <PropagateLoader size={8} color="red" />
       ) : (
         (!user || user.length === 0) && <p>Not following anyone</p>
       )}
       {user && user.length > 0 && (
-        <ul>
+        <ul className="w-full flex gap-2">
           {user.map(({ image, username }) => (
             <li key={username}>
-              <Link href={`/user/${username}`}>
+              <Link
+                className="flex flex-col items-center w-20"
+                href={`/user/${username}`}
+              >
                 <Avatar image={image} highlight />
-                <p>{username}</p>
+                <p className="w-full text-sm text-ellipsis overflow-hidden text-center">
+                  {username}
+                </p>
               </Link>
             </li>
           ))}
