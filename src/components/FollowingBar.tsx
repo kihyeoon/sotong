@@ -1,5 +1,6 @@
 "use client";
 import Avatar from "@/components/Avatar";
+import ScrollableBar from "@/components/ScrollableBar";
 import { DetailUser } from "@/model/user";
 import Link from "next/link";
 import { PropagateLoader } from "react-spinners";
@@ -22,21 +23,20 @@ export default function FollowingBar() {
         (!user || user.length === 0) && <p>Not following anyone</p>
       )}
       {user && user.length > 0 && (
-        <ul className="w-full flex gap-2">
+        <ScrollableBar>
           {user.map(({ image, username }) => (
-            <li key={username}>
-              <Link
-                className="flex flex-col items-center w-20"
-                href={`/user/${username}`}
-              >
-                <Avatar image={image} highlight />
-                <p className="w-full text-sm text-ellipsis overflow-hidden text-center">
-                  {username}
-                </p>
-              </Link>
-            </li>
+            <Link
+              key={username}
+              className="flex flex-col items-center w-20"
+              href={`/user/${username}`}
+            >
+              <Avatar image={image} highlight />
+              <p className="w-full text-sm text-ellipsis overflow-hidden text-center">
+                {username}
+              </p>
+            </Link>
           ))}
-        </ul>
+        </ScrollableBar>
       )}
     </section>
   );
