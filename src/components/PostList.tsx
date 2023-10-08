@@ -1,3 +1,12 @@
+"use client";
+
+import { SimpplePost } from "@/model/post";
+import useSWR from "swr";
+
 export default function PostList() {
-  return <div>PostList</div>;
+  const { data: posts, isLoading } = useSWR<SimpplePost[]>("/api/posts");
+  console.log(posts);
+  return (
+    <ul>{posts && posts.map((post) => <li key={post.id}>{post.text}</li>)}</ul>
+  );
 }
