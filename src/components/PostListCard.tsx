@@ -1,12 +1,15 @@
+import ActionBar from "@/components/ActionBar";
 import Avatar from "@/components/Avatar";
-import BookmarkIcon from "@/components/ui/icons/BookmarkIcon";
-import HeartIcon from "@/components/ui/icons/HeartIcon";
-import SmileIcon from "@/components/ui/icons/SmileIcon";
+import CommentForm from "@/components/CommentForm";
 import { SimpplePost } from "@/model/post";
-import { parseDate } from "@/util/date";
 import Image from "next/image";
 
-export default function PostListCard({ post }: { post: SimpplePost }) {
+interface Props {
+  post: SimpplePost;
+  priority?: boolean;
+}
+
+export default function PostListCard({ post, priority }: Props) {
   const { userImage, username, image, createdAt, likes, text } = post;
 
   return (
@@ -21,30 +24,15 @@ export default function PostListCard({ post }: { post: SimpplePost }) {
         width={500}
         height={500}
         alt={`photo by ${username} at ${createdAt}`}
+        priority={priority}
       />
-      <div className="flex justify-between my-2 px-4">
-        <HeartIcon />
-        <BookmarkIcon />
-      </div>
-      <div className="px-4 py-1">
-        <p className="text-sm font-bold mb-2">{`${likes?.length ?? 0} ${
-          likes?.length > 1 ? "likes" : "like"
-        }`}</p>
-        <p>
-          <span className="font-bold mr-1">{username}</span>
-          {text}
-        </p>
-        <p className="text-sm text-neutral-500 my-2">{parseDate(createdAt)}</p>
-        <form className="flex items-center border-t border-neutral-300">
-          <SmileIcon />
-          <input
-            className="w-full ml-2 border-none outline-none p-3 bg-transparent"
-            type="text"
-            placeholder="Add a comment..."
-          />
-          <button className="font-semibold text-sky-500">Post</button>
-        </form>
-      </div>
+      <ActionBar
+        username={username}
+        text={text}
+        createdAt={createdAt}
+        likes={likes}
+      />
+      <CommentForm />
     </article>
   );
 }
