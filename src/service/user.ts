@@ -1,3 +1,4 @@
+import { ProfileUser } from "@/model/user";
 import { client } from "@/service/sanity";
 
 interface OAuthUser {
@@ -23,7 +24,8 @@ export async function addUser({ id, email, name, username, image }: OAuthUser) {
 }
 
 export async function getUserByUsername(username: string) {
-  return client.fetch(`*[_type == "user" && username == "${username}"][0]{
+  return client.fetch(`
+    *[_type == "user" && username == "${username}"][0]{
     ...,
     "id":_id,
     following[]->{username, image},
@@ -36,13 +38,19 @@ export async function searchUsers(keyword?: string) {
   const query = keyword
     ? `&& username match "${keyword}*" || name match "${keyword}*"`
     : "";
-  return client.fetch(
-    `
-      *[_type == "user" ${query}]{
-        ...,
-        "following":count(following),
-        "followers":count(followers),
-      }
-    `
-  );
+  return client
+    .fetch<ProfileUser[]>(
+      `*[_type == "user" ${query}]{
+      ...,
+      "following":count(following),
+      "followers":count(followers),
+      }`
+    )
+    .then((users) =>
+      users.map((user) => ({
+        ...user,
+        following: user.following ?? 0,
+        followers: user.followers ?? 0,
+      }))
+    );
 }
