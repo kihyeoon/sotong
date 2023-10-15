@@ -9,7 +9,7 @@ interface Context {
   };
 }
 
-export async function GET(context: Context) {
+export async function GET(request: NextRequest, context: Context) {
   const session = await getServerSession(authOptions);
   const user = session?.user;
 

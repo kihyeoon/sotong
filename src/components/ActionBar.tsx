@@ -4,9 +4,9 @@ import { parseDate } from "@/util/date";
 
 interface Props {
   username: string;
-  text: string;
   createdAt: string;
   likes: string[];
+  text?: string;
 }
 
 export default function ActionBar({ username, text, createdAt, likes }: Props) {
@@ -20,10 +20,12 @@ export default function ActionBar({ username, text, createdAt, likes }: Props) {
         <p className="text-sm font-bold mb-2">{`${likes?.length ?? 0} ${
           likes?.length > 1 ? "likes" : "like"
         }`}</p>
-        <p>
-          <span className="font-bold mr-1">{username}</span>
-          {text}
-        </p>
+        {text && (
+          <p>
+            <span className="font-bold mr-1">{username}</span>
+            {text}
+          </p>
+        )}
         <p className="text-sm text-neutral-500 my-2">{parseDate(createdAt)}</p>
       </div>
     </>

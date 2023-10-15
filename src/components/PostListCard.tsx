@@ -5,6 +5,7 @@ import Avatar from "@/components/Avatar";
 import CommentForm from "@/components/CommentForm";
 import PostDetail from "@/components/PostDetail";
 import PostModal from "@/components/PostModal";
+import PostUserAvatar from "@/components/PostUserAvatar";
 import ModalPortal from "@/components/ui/ModalPortal";
 import { SimpplePost } from "@/model/post";
 import Image from "next/image";
@@ -21,10 +22,7 @@ export default function PostListCard({ post, priority }: Props) {
 
   return (
     <article className="rounded-lg shadow-md border border-gray-200">
-      <div className="flex items-center p-2">
-        <Avatar image={userImage} size="medium" highlight />
-        <span className="text-gray-900 font-bold ml-2">{username}</span>
-      </div>
+      <PostUserAvatar userImage={userImage} username={username} />
       <Image
         className="w-full object-cover aspect-square"
         src={image}
