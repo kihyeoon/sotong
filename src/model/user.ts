@@ -12,3 +12,8 @@ export interface DetailUser extends User {
   followers: SimpleUser[];
   bookmartks: string[];
 }
+
+export interface ProfileUser extends User {
+  following: number;
+  followers: number;
+}
