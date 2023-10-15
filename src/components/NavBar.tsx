@@ -26,33 +26,35 @@ export default function NavBar() {
   const user = session?.user;
 
   return (
-    <header className="flex items-center justify-between p-4 sticky top-0 bg-white">
-      <Link href="/">
-        <h1 className="text-3xl font-bold">Sotong</h1>
-      </Link>
-      <nav>
-        <ul className="flex space-x-4 text-xl items-center">
-          {menu.map(({ href, Icon, FillIcon }) => (
-            <li key={href}>
-              <Link href={href}>{pathname === href ? FillIcon : Icon}</Link>
-            </li>
-          ))}
-          {user && (
-            <li>
-              <Link href={`/user/${user.username}`}>
-                <Avatar image={user.image} size="small" />
-              </Link>
-            </li>
-          )}
-          <li>
-            {session ? (
-              <ColorButton text="Sign out" onClick={() => signOut()} />
-            ) : (
-              <ColorButton text="Sign in" onClick={() => signIn()} />
+    <header className="sticky top-0 bg-white z-20">
+      <div className="flex items-center justify-between p-4  max-w-screen-lg mx-auto">
+        <Link href="/">
+          <h1 className="text-3xl font-bold">Sotong</h1>
+        </Link>
+        <nav>
+          <ul className="flex space-x-4 text-xl items-center">
+            {menu.map(({ href, Icon, FillIcon }) => (
+              <li key={href}>
+                <Link href={href}>{pathname === href ? FillIcon : Icon}</Link>
+              </li>
+            ))}
+            {user && (
+              <li>
+                <Link href={`/user/${user.username}`}>
+                  <Avatar image={user.image} size="small" />
+                </Link>
+              </li>
             )}
-          </li>
-        </ul>
-      </nav>
+            <li>
+              {session ? (
+                <ColorButton text="Sign out" onClick={() => signOut()} />
+              ) : (
+                <ColorButton text="Sign in" onClick={() => signIn()} />
+              )}
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }

@@ -15,10 +15,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={openSans.className}>
-      <body className="mx-auto flex min-h-screen max-w-screen-xl flex-col">
+      <body className="flex flex-col min-h-screen bg-neutral-50">
         <AuthContext>
           <NavBar />
-          <main className="grow p-4 flex justify-center bg-neutral-50">
+          <main className="grow p-4 flex justify-center">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
         </AuthContext>
