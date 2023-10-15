@@ -3,6 +3,7 @@
 import ActionBar from "@/components/ActionBar";
 import Avatar from "@/components/Avatar";
 import CommentForm from "@/components/CommentForm";
+import PostDetail from "@/components/PostDetail";
 import PostModal from "@/components/PostModal";
 import ModalPortal from "@/components/ui/ModalPortal";
 import { SimpplePost } from "@/model/post";
@@ -43,7 +44,7 @@ export default function PostListCard({ post, priority }: Props) {
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
-            <p>post modal</p>
+            <PostDetail post={post} />
           </PostModal>
         </ModalPortal>
       )}

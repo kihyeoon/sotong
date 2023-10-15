@@ -1,4 +1,4 @@
-import { SimpplePost } from "@/model/post";
+import { FullPost, SimpplePost } from "@/model/post";
 import { client, urlFor } from "@/service/sanity";
 
 const simplePostProjection = `
@@ -26,4 +26,26 @@ export async function getFollowingPostsOf(username: string) {
         image: urlFor(post.image),
       }))
     );
+}
+
+export async function getPost(id: string) {
+  return client
+    .fetch(
+      `
+      *[_type == "post" && _id == "${id}"] [0] {
+        ...,
+        "username": author->username,
+        "userImage": author->image,
+        "image": photo,
+        "likes": likes[]->username,
+        comments[] {comment, "username": author->username, "userImage": author->image},
+        "id": _id,
+        "createdAt": _createdAt,
+      }
+      `
+    )
+    .then((post: FullPost) => ({
+      ...post,
+      image: urlFor(post.image),
+    }));
 }
