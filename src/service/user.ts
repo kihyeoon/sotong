@@ -64,10 +64,12 @@ export async function getUserForProfile(username: string) {
       "id":_id,
       "posts": count(*[_type == "post" && author->username == "${username}"]),
       }`
-  ).then((user) => ({
-    ...user,
-    following: user.following ?? 0,
-    followers: user.followers ?? 0,
-    posts: user.posts ?? 0,
-  }))
+  ).then((user) => (
+    user ? {
+      ...user,
+      following: user.following ?? 0,
+      followers: user.followers ?? 0,
+      posts: user.posts ?? 0,
+    } : null
+  ))
 }
