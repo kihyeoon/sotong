@@ -1,4 +1,4 @@
-import { FullPost, SimpplePost } from "@/model/post";
+import { SimpplePost } from "@/model/post";
 import { client, urlFor } from "@/service/sanity";
 
 const simplePostProjection = `
@@ -20,12 +20,7 @@ export async function getFollowingPostsOf(username: string) {
       *[_type == "post" && author->username == "${username}" || author._ref in *[_type=="user" && username=="${username}"].following[]._ref] | order(_createdAt desc) {${simplePostProjection}}
       `
     )
-    .then((posts) =>
-      posts.map((post: SimpplePost) => ({
-        ...post,
-        image: urlFor(post.image),
-      }))
-    );
+    .then((posts) => posts.map(createImageUrl));
 }
 
 export async function getPost(id: string) {
@@ -44,8 +39,45 @@ export async function getPost(id: string) {
       }
       `
     )
-    .then((post: FullPost) => ({
-      ...post,
-      image: urlFor(post.image),
-    }));
+    .then(createImageUrl);
+}
+
+export async function getPostsOf(username: string) {
+  return client
+    .fetch(
+      `
+      *[_type == "post" && author->username == "${username}"] 
+      | order(_createdAt desc) {${simplePostProjection}}
+      `
+    )
+    .then((posts) => posts.map(createImageUrl));
+}
+
+export async function getLikedPostsOf(username: string) {
+  return client
+    .fetch(
+      `
+      *[_type == "post" && "${username}" in likes[]->username] 
+      | order(_createdAt desc) {${simplePostProjection}}
+      `
+    )
+    .then((posts) => posts.map(createImageUrl));
+}
+
+export async function getSavedPostsOf(username: string) {
+  return client
+    .fetch(
+      `
+      *[_type == "post" && _id in *[_type=="user" && username=="${username}"].bookmarks[]._ref]
+      | order(_createdAt desc) {${simplePostProjection}}
+      `
+    )
+    .then((posts) => posts.map(createImageUrl));
+}
+
+function createImageUrl(post: SimpplePost) {
+  return {
+    ...post,
+    image: urlFor(post.image),
+  };
 }
