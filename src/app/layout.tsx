@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="flex flex-col min-h-screen bg-neutral-50">
         <AuthContext>
           <NavBar />
-          <main className="grow p-4 flex justify-center">
+          <main className="p-4 flex justify-center">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
         </AuthContext>
