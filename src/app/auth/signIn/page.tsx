@@ -1,8 +1,14 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SignIn from "@/components/SignIn";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Sign In",
+  description: "Sign In or Sign Up to Sotong",
+};
 
 interface Props {
   searchParams: {
