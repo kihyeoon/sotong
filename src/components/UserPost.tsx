@@ -19,20 +19,19 @@ export default function UserPost({
 
   return (
     <section>
-      <ul>
+      <ul className="flex justify-center uppercase">
         {tabs.map(({ type, icon }) => {
           const isActive = query === type;
           return (
-            <li key={type}>
-              <button
-                className={`flex items-center justify-center w-12 h-12 rounded-full ${
-                  isActive ? "bg-gray-200" : ""
-                }`}
-                onClick={() => setQuery(type)}
-              >
-                {icon}
-              </button>
-              <span>{type}</span>
+            <li
+              key={type}
+              onClick={() => setQuery(type)}
+              className={`mx-12 p-4 cursor-pointer border-black ${
+                isActive && "font-bold border-t"
+              }`}
+            >
+              <button className="scale-150 md:scale-100">{icon}</button>
+              <span className="hidden md:inline">{type}</span>
             </li>
           );
         })}

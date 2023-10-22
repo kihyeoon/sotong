@@ -13,11 +13,10 @@ export default function PostGrid({ username, query }: Props) {
     `/api/user/${username}/${query}`
   );
 
-  console.log("posts", posts);
   return (
-    <>
+    <div className="w-full text-center">
       {isLoading && <GridSpinner />}
-      <ul>
+      <ul className="grid grid-cols-3 gap-4 p-4">
         {posts?.map((post: any, index) => {
           return (
             <li key={post.id}>
@@ -26,6 +25,6 @@ export default function PostGrid({ username, query }: Props) {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 }
