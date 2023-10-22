@@ -15,6 +15,6 @@ export type Comment = {
   comment: string;
 };
 
-export type SimpplePost = Omit<FullPost, "comments"> & {
+export type SimplePost = Omit<FullPost, "comments"> & {
   comments: number;
 };

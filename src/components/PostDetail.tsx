@@ -2,11 +2,11 @@ import ActionBar from "@/components/ActionBar";
 import Avatar from "@/components/Avatar";
 import CommentForm from "@/components/CommentForm";
 import PostUserAvatar from "@/components/PostUserAvatar";
-import { FullPost, SimpplePost } from "@/model/post";
+import { FullPost, SimplePost } from "@/model/post";
 import Image from "next/image";
 import useSWR from "swr";
 
-export default function PostDetail({ post }: { post: SimpplePost }) {
+export default function PostDetail({ post }: { post: SimplePost }) {
   const { id, userImage, username, image, createdAt, likes, text } = post;
   const { data } = useSWR<FullPost>(`/api/posts/${id}`);
   console.log(data);

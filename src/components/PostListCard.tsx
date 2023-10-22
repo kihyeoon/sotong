@@ -7,12 +7,12 @@ import PostDetail from "@/components/PostDetail";
 import PostModal from "@/components/PostModal";
 import PostUserAvatar from "@/components/PostUserAvatar";
 import ModalPortal from "@/components/ui/ModalPortal";
-import { SimpplePost } from "@/model/post";
+import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import { useState } from "react";
 
 interface Props {
-  post: SimpplePost;
+  post: SimplePost;
   priority?: boolean;
 }
 
