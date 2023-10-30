@@ -2,11 +2,10 @@
 
 import PostListCard from "@/components/PostListCard";
 import GridSpinner from "@/components/ui/GridSpinner";
-import { SimplePost } from "@/model/post";
-import useSWR from "swr";
+import usePost from "@/hooks/post";
 
 export default function PostList() {
-  const { data: posts, isLoading } = useSWR<SimplePost[]>("/api/posts");
+  const { posts, isLoading } = usePost();
 
   return (
     <div>
