@@ -1,16 +1,8 @@
-import { SimplePost } from "@/model/post";
+import { Comment, FullPost } from "@/model/post";
 import useSWR from "swr";
 
 const POST_URL = "/api/posts";
-const LIKE_URL = "/api/likes";
 const COMMENT_URL = "/api/comments";
-
-async function updateLike(id: string, like: boolean) {
-  return fetch(LIKE_URL, {
-    method: "PUT",
-    body: JSON.stringify({ id, like }),
-  }).then((res) => res.json());
-}
 
 async function addComment(id: string, comment: string) {
   return fetch(COMMENT_URL, {
@@ -19,40 +11,23 @@ async function addComment(id: string, comment: string) {
   }).then((res) => res.json());
 }
 
-export default function usePost() {
+export default function useFullPost(postId: string) {
   const {
-    data: posts,
+    data: post,
     isLoading,
     error,
     mutate,
-  } = useSWR<SimplePost[]>(POST_URL);
+  } = useSWR<FullPost>(`${POST_URL}/${postId}`);
 
-  const setLike = (post: SimplePost, username: string, like: boolean) => {
+  const postComment = (comment: Comment) => {
+    if (!post) return;
     const newPost = {
       ...post,
-      likes: like
-        ? [...post.likes, username]
-        : post.likes.filter((name) => name !== username),
+      comments: [...post.comments, comment],
     };
-    const newPosts = posts?.map((p) => (p.id === post.id ? newPost : p));
 
-    return mutate(updateLike(post.id, like), {
-      optimisticData: newPosts,
-      populateCache: false,
-      revalidate: false,
-      rollbackOnError: true,
-    });
-  };
-
-  const postComment = (post: SimplePost, comment: string) => {
-    const newPost = {
-      ...post,
-      comments: post.comments + 1,
-    };
-    const newPosts = posts?.map((p) => (p.id === post.id ? newPost : p));
-
-    return mutate(addComment(post.id, comment), {
-      optimisticData: newPosts,
+    return mutate(addComment(post.id, comment.comment), {
+      optimisticData: newPost,
       populateCache: false,
       revalidate: false,
       rollbackOnError: true,
@@ -60,10 +35,9 @@ export default function usePost() {
   };
 
   return {
-    posts,
+    post,
     isLoading,
     isError: error,
-    setLike,
     postComment,
   };
 }

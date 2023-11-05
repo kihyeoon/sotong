@@ -2,17 +2,20 @@ import ActionBar from "@/components/ActionBar";
 import Avatar from "@/components/Avatar";
 import CommentForm from "@/components/CommentForm";
 import PostUserAvatar from "@/components/PostUserAvatar";
-import { FullPost, SimplePost } from "@/model/post";
+import useMe from "@/hooks/me";
+import useFullPost from "@/hooks/post";
+import { SimplePost } from "@/model/post";
 import Image from "next/image";
-import useSWR from "swr";
 
 export default function PostDetail({ post }: { post: SimplePost }) {
-  const { id, userImage, username, image, createdAt, likes, text } = post;
-  const { data } = useSWR<FullPost>(`/api/posts/${id}`);
+  const { id, userImage, username, image } = post;
+  const { post: data, postComment } = useFullPost(id);
+  const { user } = useMe();
   const comments = data?.comments;
 
   const handlePostComment = (comment: string) => {
-    console.log(comment);
+    user &&
+      postComment({ comment, username: user.username, userImage: user.image });
   };
 
   return (

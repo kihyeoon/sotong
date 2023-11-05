@@ -7,7 +7,7 @@ import PostDetail from "@/components/PostDetail";
 import PostModal from "@/components/PostModal";
 import PostUserAvatar from "@/components/PostUserAvatar";
 import ModalPortal from "@/components/ui/ModalPortal";
-import usePost from "@/hooks/post";
+import usePost from "@/hooks/posts";
 import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import { useState } from "react";

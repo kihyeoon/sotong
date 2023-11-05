@@ -6,7 +6,7 @@ import {
   HeartIcon,
 } from "@/components/ui/icons";
 import useMe from "@/hooks/me";
-import usePost from "@/hooks/post";
+import usePost from "@/hooks/posts";
 import { SimplePost } from "@/model/post";
 import { parseDate } from "@/util/date";
 

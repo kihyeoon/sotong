@@ -2,7 +2,7 @@
 
 import PostListCard from "@/components/PostListCard";
 import GridSpinner from "@/components/ui/GridSpinner";
-import usePost from "@/hooks/post";
+import usePost from "@/hooks/posts";
 
 export default function PostList() {
   const { posts, isLoading } = usePost();
