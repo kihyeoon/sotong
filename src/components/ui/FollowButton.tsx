@@ -1,11 +1,11 @@
 "use client";
 import Button from "@/components/ui/Button";
-import { HomeUser, ProfileUser } from "@/model/user";
-import useSWR from "swr";
+import useMe from "@/hooks/me";
+import { ProfileUser } from "@/model/user";
 
 export default function FollowButton({ user }: { user: ProfileUser }) {
   const { username } = user;
-  const { data: loggedInUser } = useSWR<HomeUser>(`/api/me`);
+  const { user: loggedInUser } = useMe();
 
   const showButton = loggedInUser && loggedInUser.username !== username;
   const isFollowing =

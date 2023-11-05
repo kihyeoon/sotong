@@ -1,5 +1,5 @@
 import { SimplePost } from "@/model/post";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 const POST_URL = "/api/posts";
 const LIKE_URL = "/api/likes";

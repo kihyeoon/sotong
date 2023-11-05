@@ -11,7 +11,7 @@ export type SimpleUser = Pick<AuthUser, "username" | "image">;
 export interface HomeUser extends AuthUser {
   following: SimpleUser[];
   followers: SimpleUser[];
-  bookmartks: string[];
+  bookmarks: string[];
 }
 
 export interface SearchUser extends AuthUser {
