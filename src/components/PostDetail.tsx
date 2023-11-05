@@ -9,8 +9,11 @@ import useSWR from "swr";
 export default function PostDetail({ post }: { post: SimplePost }) {
   const { id, userImage, username, image, createdAt, likes, text } = post;
   const { data } = useSWR<FullPost>(`/api/posts/${id}`);
-  console.log(data);
   const comments = data?.comments;
+
+  const handlePostComment = (comment: string) => {
+    console.log(comment);
+  };
 
   return (
     <section className="flex w-full h-full">
@@ -47,7 +50,7 @@ export default function PostDetail({ post }: { post: SimplePost }) {
             )}
         </ul>
         <ActionBar post={post} />
-        <CommentForm />
+        <CommentForm onPostComment={handlePostComment} />
       </div>
     </section>
   );

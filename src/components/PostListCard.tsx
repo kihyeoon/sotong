@@ -7,6 +7,7 @@ import PostDetail from "@/components/PostDetail";
 import PostModal from "@/components/PostModal";
 import PostUserAvatar from "@/components/PostUserAvatar";
 import ModalPortal from "@/components/ui/ModalPortal";
+import usePost from "@/hooks/post";
 import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import { useState } from "react";
@@ -19,6 +20,11 @@ interface Props {
 export default function PostListCard({ post, priority }: Props) {
   const { userImage, username, image, createdAt, comments, text } = post;
   const [openModal, setOpenModal] = useState(false);
+  const { postComment } = usePost();
+
+  const handlePostComment = (comment: string) => {
+    postComment(post, comment);
+  };
 
   return (
     <article className="rounded-lg shadow-md border border-gray-200">
@@ -44,7 +50,7 @@ export default function PostListCard({ post, priority }: Props) {
           >{`View all ${comments} comments`}</button>
         )}
       </ActionBar>
-      <CommentForm />
+      <CommentForm onPostComment={handlePostComment} />
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
