@@ -1,4 +1,4 @@
-import { SimplePost } from "@/model/post";
+import { Comment, SimplePost } from "@/model/post";
 import useSWR from "swr";
 
 const POST_URL = "/api/posts";
@@ -44,7 +44,7 @@ export default function usePost() {
     });
   };
 
-  const postComment = (post: SimplePost, comment: string) => {
+  const postComment = (post: SimplePost, { comment }: Comment) => {
     const newPost = {
       ...post,
       comments: post.comments + 1,

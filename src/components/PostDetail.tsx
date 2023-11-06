@@ -1,8 +1,6 @@
 import ActionBar from "@/components/ActionBar";
 import Avatar from "@/components/Avatar";
-import CommentForm from "@/components/CommentForm";
 import PostUserAvatar from "@/components/PostUserAvatar";
-import useMe from "@/hooks/me";
 import useFullPost from "@/hooks/post";
 import { SimplePost } from "@/model/post";
 import Image from "next/image";
@@ -10,13 +8,7 @@ import Image from "next/image";
 export default function PostDetail({ post }: { post: SimplePost }) {
   const { id, userImage, username, image } = post;
   const { post: data, postComment } = useFullPost(id);
-  const { user } = useMe();
   const comments = data?.comments;
-
-  const handlePostComment = (comment: string) => {
-    user &&
-      postComment({ comment, username: user.username, userImage: user.image });
-  };
 
   return (
     <section className="flex w-full h-full">
@@ -52,8 +44,7 @@ export default function PostDetail({ post }: { post: SimplePost }) {
               )
             )}
         </ul>
-        <ActionBar post={post} />
-        <CommentForm onPostComment={handlePostComment} />
+        <ActionBar post={post} onComment={postComment} />
       </div>
     </section>
   );
