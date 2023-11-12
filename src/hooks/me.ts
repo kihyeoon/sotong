@@ -4,11 +4,19 @@ import useSWR from "swr";
 
 const ME_URL = "/api/me";
 const BOOKMARK_URL = "/api/bookmarks";
+const FOLLOW_URL = "/api/follow";
 
 async function updateBookmark(postId: string, bookmark: boolean) {
   return fetch(BOOKMARK_URL, {
     method: "PUT",
     body: JSON.stringify({ id: postId, bookmark }),
+  }).then((res) => res.json());
+}
+
+async function updateFollow(targetId: string, follow: boolean) {
+  return fetch(FOLLOW_URL, {
+    method: "PUT",
+    body: JSON.stringify({ id: targetId, follow }),
   }).then((res) => res.json());
 }
 
@@ -36,10 +44,18 @@ export default function useMe() {
     [mutate, user]
   );
 
+  const toggleFollow = useCallback(
+    (targetId: string, follow: boolean) => {
+      return mutate(updateFollow(targetId, follow), { populateCache: false });
+    },
+    [mutate]
+  );
+
   return {
     user,
     isLoading,
     isError: error,
     setBookmark,
+    toggleFollow,
   };
 }
