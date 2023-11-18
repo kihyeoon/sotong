@@ -1,6 +1,7 @@
 "use client";
 import PostGrid from "@/components/PostGrid";
 import { BookmarkIcon, HeartIcon, PostIcon } from "@/components/ui/icons";
+import { CacheKeysContext } from "@/context/CacheKeysContext";
 import { ProfileUser } from "@/model/user";
 import { useState } from "react";
 
@@ -36,7 +37,11 @@ export default function UserPost({
           );
         })}
       </ul>
-      <PostGrid username={username} query={query} />
+      <CacheKeysContext.Provider
+        value={{ postKey: `/api/user/${username}/${query}` }}
+      >
+        <PostGrid />
+      </CacheKeysContext.Provider>
     </section>
   );
 }
