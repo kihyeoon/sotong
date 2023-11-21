@@ -6,9 +6,17 @@ import { ProfileUser } from "@/model/user";
 import { useState } from "react";
 
 const tabs = [
-  { type: "posts", icon: <PostIcon /> },
-  { type: "saved", icon: <BookmarkIcon className="w-3 h-3" /> },
-  { type: "liked", icon: <HeartIcon className="w-3 h-3" /> },
+  { type: "posts", icon: <PostIcon />, title: "Posts" },
+  {
+    type: "saved",
+    icon: <BookmarkIcon className="w-3 h-3" />,
+    title: "Saved posts",
+  },
+  {
+    type: "liked",
+    icon: <HeartIcon className="w-3 h-3" />,
+    title: "Liked posts",
+  },
 ];
 
 export default function UserPost({
@@ -21,7 +29,7 @@ export default function UserPost({
   return (
     <section>
       <ul className="flex justify-center uppercase">
-        {tabs.map(({ type, icon }) => {
+        {tabs.map(({ type, icon, title }) => {
           const isActive = query === type;
           return (
             <li
@@ -31,7 +39,9 @@ export default function UserPost({
                 isActive && "font-bold border-t"
               }`}
             >
-              <button className="scale-150 md:scale-100">{icon}</button>
+              <button className="scale-150 md:scale-100" aria-label={title}>
+                {icon}
+              </button>
               <span className="hidden md:inline">{type}</span>
             </li>
           );

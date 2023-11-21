@@ -3,6 +3,7 @@ interface Props {
   onToggle: (toggled: boolean) => void;
   onIcon: React.ReactNode;
   offIcon: React.ReactNode;
+  title: string;
 }
 
 export default function ToggleBotton({
@@ -10,9 +11,10 @@ export default function ToggleBotton({
   onToggle,
   onIcon,
   offIcon,
+  title,
 }: Props) {
   return (
-    <button onClick={() => onToggle(!toggled)}>
+    <button aria-label={title} onClick={() => onToggle(!toggled)}>
       {toggled ? onIcon : offIcon}
     </button>
   );

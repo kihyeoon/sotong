@@ -15,9 +15,19 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Avatar from "@/components/Avatar";
 
 const menu = [
-  { href: "/", Icon: <HomeIcon />, FillIcon: <HomeFillIcon /> },
-  { href: "/search", Icon: <SearchIcon />, FillIcon: <SearchFillIcon /> },
-  { href: "/new", Icon: <NewIcon />, FillIcon: <NewFillIcon /> },
+  { href: "/", Icon: <HomeIcon />, FillIcon: <HomeFillIcon />, title: "Home" },
+  {
+    href: "/search",
+    Icon: <SearchIcon />,
+    FillIcon: <SearchFillIcon />,
+    title: "Search",
+  },
+  {
+    href: "/new",
+    Icon: <NewIcon />,
+    FillIcon: <NewFillIcon />,
+    title: "New post",
+  },
 ];
 
 export default function NavBar() {
@@ -28,14 +38,16 @@ export default function NavBar() {
   return (
     <header className="sticky top-0 bg-white z-20">
       <div className="flex items-center justify-between p-4  max-w-screen-lg mx-auto">
-        <Link href="/">
+        <Link href="/" aria-label="Home">
           <h1 className="text-3xl font-bold">Sotong</h1>
         </Link>
         <nav>
           <ul className="flex space-x-4 text-xl items-center">
-            {menu.map(({ href, Icon, FillIcon }) => (
+            {menu.map(({ href, Icon, FillIcon, title }) => (
               <li key={href}>
-                <Link href={href}>{pathname === href ? FillIcon : Icon}</Link>
+                <Link href={href} aria-label={title}>
+                  {pathname === href ? FillIcon : Icon}
+                </Link>
               </li>
             ))}
             {user && (
